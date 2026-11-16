@@ -339,6 +339,8 @@ class PaperAccount:
         if position and any(str(position[key]) != str(item[key]) for key in ("market_id", "event_id", "condition_id", "outcome")):
             raise ValueError("已有持仓身份与本次动作不符")
         if item["action"] == "BUY":
+            if position and (position.get('rules_hash') != item.get('rules_hash') or position.get('rules_text') != item.get('rules_text')):
+                raise ValueError('已有持仓与追加买入的规则版本不同，需先复核原持仓')
             budget = min(_decimal(item["budget"]), _decimal(state["cash"]))
             if budget <= 0:
                 raise ValueError("可用现金不足")

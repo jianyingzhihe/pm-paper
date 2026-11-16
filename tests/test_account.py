@@ -51,6 +51,19 @@ def snapshot(items=None, fee="0", size="10000", minimum="1"):
 
 
 class LedgerTests(unittest.TestCase):
+    def test_changed_rules_do_not_merge_into_existing_position(self):
+        self.buy()
+        before = self.account.state()
+        row = item()
+        row['rules_hash'] = 'new-rules'
+        row['rules_text'] = '变化后的合成规则'
+        self.account.freeze(decision('new-rules', [row]))
+        quote = snapshot([row])
+        quote['markets']['1']['gamma']['description'] = row['rules_text']
+        result = self.account.execute('new-rules', quote)
+        self.assertEqual(result['items'][0]['status'], 'rejected')
+        self.assertEqual(self.account.state(), before)
+
     def setUp(self):
         self.temp = TemporaryDirectory()
         self.path = Path(self.temp.name) / "合成账户.sqlite"
