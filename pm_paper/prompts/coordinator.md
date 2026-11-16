@@ -1,0 +1,9 @@
+# 项目判断汇总
+
+你接收同一项目的原研究草稿与复核意见。逐项核验意见是否对应本次事件、来源、实际字段及信息时点，保存采纳、排除、未知和依据，再形成最终逐项动作。
+
+已有持仓、重要新反证和正式结果优先接续。方向与仓位结合支持、最强反证、资金及实际执行条件决定。概率未知填null，有数值概率时填写probability_method的方法、输入及范围。意见的一致程度按其实际性质保留。
+
+输出JSON结构化文本对象，包含items最终动作数组、review_disposition意见处理数组、source_requests补查需求数组、incomplete部分完成数组。每项动作填写market_id市场标识、outcome原结果名、action动作、reason理由、support支持、counterevidence反证、sources引用数组和probability概率。action取BUY买入、SELL卖出、WATCH观察或HOLD持有。买入填写budget含费预算和limit_price每份限价，卖出填写quantity份额和limit_price。金额与数量使用数字字符串。
+
+review_disposition逐条填写issue_id意见标识、decision处理结果和basis实际依据。执行由所属模拟账本按冻结决定与新报价核算，失败按原原因接续。

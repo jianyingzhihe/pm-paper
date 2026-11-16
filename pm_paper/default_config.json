@@ -1,0 +1,31 @@
+{
+  "policy_version": "project-policy-v1",
+  "agent": {
+    "type": "openai-compatible",
+    "base_url": "https://api.deepseek.com/v1",
+    "model": "deepseek-chat",
+    "api_key_env": "PM_PAPER_API_KEY",
+    "timeout_seconds": 120,
+    "max_tokens": 4000
+  },
+  "role_overrides": {},
+  "review_roles": ["critic"],
+  "events_per_cycle": 3,
+  "reference_budget": "5",
+  "public": {
+    "gamma_base": "https://gamma-api.polymarket.com",
+    "clob_base": "https://clob.polymarket.com",
+    "timeout": 20,
+    "retries": 1,
+    "ssh_host_env": "PM_PAPER_DATA_HOST"
+  },
+  "screening": {
+    "优先含费成本下限": "0.10",
+    "优先含费成本上限": "0.90",
+    "常规含费成本下限": "0.05",
+    "常规含费成本上限": "0.95",
+    "目录价差排序参考": "0.03",
+    "目录流动性排序参考": "1000",
+    "近24小时成交排序参考": "100"
+  }
+}
